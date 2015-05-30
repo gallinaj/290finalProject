@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Recipe Box</title>
+		<script type="text/javascript" src="recipes.js" ></script>
+		<link rel="stylesheet" type="text/css" href="recipes.css">
+	</head>
+  
+  <body>
+	<div id="addRecipe">
+		<form id="addForm">
+			<fieldset>
+				<legend>Add Recipe</legend>
+				<span>Recipe Name </span><input type="text" name="name"><br />
+				<span>Recipe Type </span><select id="type" name="category">
+					<option value="">Select a type</option>
+					<option value="mainDish">Main Dish</option>
+					<option value="sideDish">Side Dish</option>
+					<option value="soup">Soup</option>
+					<option value="salad">Salad</option>
+					<option value="dessert">Dessert</option>				
+				</select><br />
+				<span>Main Ingredient </span><input type="text" name="mainIngredient"><br />
+				<span>Where is it? </span><select id="location" name="location">
+					<option value="">Select</option>
+					<option value="website">Website</option>
+					<option value="magazine">Magazine</option>
+				</select><br />
+				<input id="addButton" type="button" name="addButton" value="Add Recipe">
+			</fieldset>
+		</form>
+	</div>
+	
+	<div id="filters">
+		<fieldset>
+			<legend>Sort Recipes</legend>
+			<table>
+				<tr>
+					<td>Recipe Type</td>
+					<td id="sortOnType">Sort</td>
+				</tr>
+				<tr>
+					<td>Main Ingredient</td>
+					<td id="sortOnIng">Sort</td>
+				</tr>
+				<tr>
+					<td id="clearFilter">Clear Filters</td>
+				</tr>
+			</table>
+		</fieldset>
+    </div>
+	
+	<div id="recipelist">
+		<fieldset>
+			<legend>Recipes</legend>
+		</fieldset>
+	</div>
+  
+  </body>
+</html>
