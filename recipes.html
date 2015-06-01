@@ -18,7 +18,9 @@
 					<option value="side dish">Side Dish</option>
 					<option value="soup">Soup</option>
 					<option value="salad">Salad</option>
-					<option value="dessert">Dessert</option>				
+					<option value="dessert">Dessert</option>	
+					<option value="Beverage">Beverage</option>
+					<option value="Poop">"Soup"</option>
 				</select><br />
 				<span>Main Ingredient </span><input type="text" name="mainIngredient"><br />
 				<span>Where is it? </span><select id="location" name="location">
@@ -43,12 +45,26 @@
 					<td>Main Ingredient</td>
 					<td><input id="sortOnIng" type="button" name="sortOnIng" value="Sort"></td>
 				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend>Filter Recipes</legend>
+			<table>
+				<tr>
+					<td>Recipe Type</td>
+					<td><input id="filterOnType" type="button" name="filterOnType" value="Filter"></td>
+				</tr>
+				<tr>
+					<td>Main Ingredient</td>
+					<td><input type="text" name="filterMainIng"></td>
+					<td><input id="filterOnIng" type="button" name="filterOnIng" value="Filter"></td>
+				</tr>
 				<tr>
 					<td><input id="clearFilter" type="button" name="sortOnIng" value="Clear Filters"></td>
 				</tr>
 			</table>
 		</fieldset>
-    </div>
+	</div>
 	
 	<div id="recipeList">
 		<fieldset>

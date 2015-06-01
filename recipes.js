@@ -1,15 +1,17 @@
 /*** Stuff that will be present when the HTML loads***/
 window.onload = function() {
+
 	makeRequest("action=initialize");
 	
 	document.getElementById("addButton").addEventListener("click", addRecipe);
+	
 	document.getElementById("sortOnType").addEventListener("click", sortRecipeType);
 	document.getElementById("sortOnIng").addEventListener("click", sortRecipeIng);
-	
-	document.getElementById("sortOnIng").addEventListener("click", sortRecipeIng);
-	
-}
+	//document.getElementById("filterOnType").addEventListener("click", filterRecipeType);
+	document.getElementById("filterOnIng").addEventListener("click", filterRecipeIng);
+	//document.getElementById("clearFilter").addEventListener("click", clearFilters);
 
+}
 
 function makeRequest(statement) {
 	var xmlHttp;
@@ -46,6 +48,9 @@ function makeRequest(statement) {
 	
 	var sortBy = "sortBy=" + localStorage.getItem("sortBy");
 	statement += '&' + sortBy;
+
+	//var sortBy = "filterBy=" + localStorage.getItem("filterBy");
+	//statement += '&' + filterBy;
 	
 	xmlHttp.open("GET", "recipes.php?" + statement, true);
 	xmlHttp.send();		
@@ -65,6 +70,18 @@ function sortRecipeType() {
 function sortRecipeIng() {
 	localStorage.setItem("sortBy", "mainIngredient");
 	var statement = "action=sort";
+	makeRequest(statement);	
+}
+
+/*function filterRecipeType() {
+	localStorage.setItem("filterBy", "category");
+	var statement = "action=filter";
+	makeRequest(statement);	
+}*/
+
+function filterRecipeIng() {
+	localStorage.setItem("filterBy", "mainIngredient");
+	var statement = "action=filter";
 	makeRequest(statement);	
 }
 

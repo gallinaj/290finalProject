@@ -62,11 +62,11 @@ else {
 				{
 					echo "<tr id=\"" . $row["id"] . "\">";
 					echo "<td>" . $row["name"] . "</td>";
-					echo "<td>" . $row["category"] . "</td>";
+					echo "<td class=\"category\">" . $row["category"] . "</td>";
 					echo "<td>" . $row["mainIngredient"] . "</td>";
 					echo "<td>" . $row["location"] . "</td>";
-					echo "<td class=\"update\">Update</td>";
-					echo "<td class=\"remove\">Remove</td>";
+					//echo "<td class=\"update\">Update</td>";
+					echo "<td><input id=\"remove\" type=\"button\" name=\"remove\" value=\"Remove\"></td>";
 					echo "</tr>";
 				}
 			echo "</tbody>";
@@ -94,9 +94,30 @@ else {
 	
 	function sortRecipe($sortBy) {
 		global $mysqli, $table;
+		
 		if(!($stmt = $mysqli->prepare("SELECT * FROM $table ORDER BY $sortBy"))) {
 			echo "Prepare failed: "  . $mysqli->errno . " " . $mysqli->error;
 		}
+		if(!$stmt->execute()) {
+			echo "Execute failed: "  . $mysqli->errno . " " . $mysqli->error;
+		}
+		
+		$allResults = $stmt->get_result();
+		
+		buildTable($allResults);		
+
+		$stmt->close();	
+	}
+	
+	function filterRecipe($filterBy) {
+		global $mysqli, $table;
+		
+		if(!($stmt = $mysqli->prepare("SELECT * FROM $table WHERE $filterBy = ?"))) {
+			echo "Prepare failed: "  . $mysqli->errno . " " . $mysqli->error;
+		}
+		if(!$stmt->bind_param("s", $mainIngredient)) {
+			echo "Bind failed: "  . $mysqli->errno . " " . $mysqli->error;
+		}		
 		if(!$stmt->execute()) {
 			echo "Execute failed: "  . $mysqli->errno . " " . $mysqli->error;
 		}
@@ -130,7 +151,7 @@ else {
 		if($action == 'initialize') {
 			initialize();
 		}
-		if($action == 'add') {
+		elseif($action == 'add') {
 			$name = $_REQUEST['name'];
 			$category = $_REQUEST['category'];
 			$mainIngredient = $_REQUEST['mainIngredient'];
@@ -139,14 +160,18 @@ else {
 		}
 		elseif($action == 'sort') {
 			$sortBy = $_REQUEST['sortBy'];
-			sortRecipe($sortBy);
+			sortRecipe($sortBy);			
+		}
+		elseif($action == 'filter') {
+			$sortBy = $_REQUEST['filterBy'];
+			filterRecipe($filterBy);			
 		}
 		elseif($action == 'remove') {
 			$id = $_REQUEST['id'];
 			removeRecipe($id);
 		}
+
 	}	
-    /*** close connection ***/
-  //  $mysqli->close();
+
 }
 ?>
