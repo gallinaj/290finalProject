@@ -35,7 +35,7 @@
 	
 	<div id="filters">
 		<fieldset>
-			<legend>Sort Recipes</legend>
+			<legend>Group Recipes by...</legend>
 			<table>
 				<tr>
 					<td>Recipe Type</td>
@@ -48,26 +48,52 @@
 			</table>
 		</fieldset>
 		<fieldset>
-			<legend>Filter Recipes</legend>
+			<legend>Filter Recipes by...</legend>
 			<table>
 				<tr>
 					<td>Recipe Type</td>
+					<td id="typeRecipe"><select name="category">
+						<option value="">Select a type</option>
+						<option id="mainDish" value="main dish">Main Dish</option>
+						<option id="sideDish" value="side dish">Side Dish</option>
+						<option value="soup">Soup</option>
+						<option value="salad">Salad</option>
+						<option value="dessert">Dessert</option>	
+						<option value="beverage">Beverage</option>
+						<option value="Poop">"Soup"</option>
+					</select></td>
 					<td><input id="filterOnType" type="button" name="filterOnType" value="Filter"></td>
 				</tr>
 				<tr>
 					<td>Main Ingredient</td>
-					<td><input type="text" name="filterMainIng"></td>
+					<td><input type="text" id="filterMainIng"></td>
 					<td><input id="filterOnIng" type="button" name="filterOnIng" value="Filter"></td>
 				</tr>
 				<tr>
 					<td><input id="clearFilter" type="button" name="sortOnIng" value="Clear Filters"></td>
 				</tr>
 			</table>
+
+			<!---<form method="POST">
+				<select id="typeRecipe">
+					<option value="">Select a type</option>
+					<option id="mainDish" value="main dish">Main Dish</option>
+					<option value="side dish">Side Dish</option>
+					<option value="soup">Soup</option>
+					<option value="salad">Salad</option>
+					<option value="dessert">Dessert</option>	
+					<option value="Beverage">Beverage</option>
+					<option value="Poop">"Soup"</option>
+				</select>
+				<input id="filterOnType" type="submit" value="Filter By Category" />
+			</form>--->
 		</fieldset>
 	</div>
 	
 	<div id="recipeList">
 		<fieldset>
+			<legend>Recipe List</legend>
+		
 		</fieldset>
 	</div>
   

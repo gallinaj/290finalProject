@@ -37,10 +37,10 @@ else {
 		if (!$stmt->execute()) {
 			echo "Execute failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
-		/*if (!($allResults = $stmt->get_result())) {
+		if (!($allResults = $stmt->get_result())) {
 			echo "Get results failed: (" . $mysqli->errno . ") " . $mysqli->error;
-		}*/
-		$allResults = $stmt->get_result();
+		}
+		//$allResults = $stmt->get_result();
 		
 		buildTable($allResults);
 		
@@ -49,7 +49,7 @@ else {
 	
 	function buildTable($allResults) {
 		echo "<table border=\"1px\">";
-		echo "<caption>Recipe List</caption>";
+		//echo "<caption>Recipe List</caption>";
 			echo "<thead>";
 				echo "<th>Recipe Name</th>";
 				echo "<th>Type</th>";
@@ -66,7 +66,7 @@ else {
 					echo "<td>" . $row["mainIngredient"] . "</td>";
 					echo "<td>" . $row["location"] . "</td>";
 					//echo "<td class=\"update\">Update</td>";
-					echo "<td><input id=\"remove\" type=\"button\" name=\"remove\" value=\"Remove\"></td>";
+					echo "<td><input class=\"remove\" type=\"button\" name=\"remove\" value=\"Remove\"></td>";
 					echo "</tr>";
 				}
 			echo "</tbody>";
@@ -75,6 +75,11 @@ else {
 	
 	function addRecipe($name, $category, $mainIngredient, $location) {
 		global $mysqli, $table;
+		
+		
+/*		if($location == "website") {
+			echo "<span>URL </span><input type=\"url\" name=\"recipeSite\"><br />";
+		}*/
 		
 		if(!($stmt = $mysqli->prepare("INSERT INTO $table(name, category, mainIngredient, location) VALUES(?,?,?,?)"))) {
 			echo "Prepare failed: "  . $mysqli->errno . " " . $mysqli->error;
@@ -87,8 +92,12 @@ else {
 		}
 		else {
 			echo "Added " . $name . " to Recipe Box.";
-			
 		}
+		
+		//$allResults = $stmt->get_result();
+		
+		//buildTable($allResults);	
+		
 		$stmt->close();
 	}
 	
@@ -101,28 +110,32 @@ else {
 		if(!$stmt->execute()) {
 			echo "Execute failed: "  . $mysqli->errno . " " . $mysqli->error;
 		}
-		
-		$allResults = $stmt->get_result();
+		if (!($allResults = $stmt->get_result())) {
+			echo "Get results failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}		
+		//$allResults = $stmt->get_result();
 		
 		buildTable($allResults);		
 
 		$stmt->close();	
 	}
 	
-	function filterRecipe($filterBy) {
+	function filterRecipe($filterBy, $filterOn) {
 		global $mysqli, $table;
 		
-		if(!($stmt = $mysqli->prepare("SELECT * FROM $table WHERE $filterBy = ?"))) {
+		if(!($stmt = $mysqli->prepare("SELECT * FROM $table WHERE $filterBy LIKE '%$filterOn%'"))) {
 			echo "Prepare failed: "  . $mysqli->errno . " " . $mysqli->error;
 		}
-		if(!$stmt->bind_param("s", $mainIngredient)) {
+		/*if(!$stmt->bind_param("s", $mainIngredient)) {
 			echo "Bind failed: "  . $mysqli->errno . " " . $mysqli->error;
-		}		
+		}*/		
 		if(!$stmt->execute()) {
 			echo "Execute failed: "  . $mysqli->errno . " " . $mysqli->error;
 		}
-		
-		$allResults = $stmt->get_result();
+		if (!($allResults = $stmt->get_result())) {
+			echo "Get results failed: (" . $mysqli->errno . ") " . $mysqli->error;
+		}		
+		//$allResults = $stmt->get_result();
 		
 		buildTable($allResults);		
 
@@ -131,6 +144,7 @@ else {
 
 	function removeRecipe($id) {
 		global $mysqli, $table;
+
 		if(!($stmt = $mysqli->prepare("DELETE FROM $table WHERE id = ?"))) {
 			echo "Prepare failed: "  . $mysqli->errno . " " . $mysqli->error;
 		}
@@ -139,9 +153,11 @@ else {
 		}		
 		if(!$stmt->execute()) {
 			echo "Execute failed: "  . $mysqli->errno . " " . $mysqli->error;
-		}		
+		}
+		//$allResults = $stmt->get_result();
+		
+		//buildTable($allResults);		
 		$stmt->close();	
-
 	}
 	
 	/*** Check if an action was sent ***/
@@ -163,8 +179,9 @@ else {
 			sortRecipe($sortBy);			
 		}
 		elseif($action == 'filter') {
-			$sortBy = $_REQUEST['filterBy'];
-			filterRecipe($filterBy);			
+			$filterBy = $_REQUEST['filterBy'];
+			$filterOn = $_REQUEST['filterOn'];
+			filterRecipe($filterBy, $filterOn);			
 		}
 		elseif($action == 'remove') {
 			$id = $_REQUEST['id'];
