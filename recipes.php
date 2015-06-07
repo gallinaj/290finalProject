@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+/*error_reporting(E_ALL);
 ini_set('display_errors','On');
 include 'storedInfo.php';
 
@@ -8,7 +8,7 @@ $mysqli = new mysqli("oniddb.cws.oregonstate.edu", "gallinaj-db", $myPassword, "
 if($mysqli->connect_errno) {
 	echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
 }
-else {
+else {*/
 	//echo "Connection worked!<br />";
 	
 	/***Code assistance from http://www.phpro.org/tutorials/Introduction-to-PHP-and-MySQL.html#6.2
@@ -23,15 +23,17 @@ else {
 	location VARCHAR(255),
 	PRIMARY KEY (id)
 	)";*/
+	require_once 'recipeHeader.php';
 
 	$table = 'recipes';
-	
 
 	/*** Initial display of table ***/
 	function initialize() {
 		global $mysqli, $table;
+		$id_result = $_SESSION['mem_id'];
 		
-		if (!($stmt = $mysqli->prepare("SELECT * FROM $table"))) {
+		
+		if (!($stmt = $mysqli->prepare("SELECT * FROM $table WHERE mem_id = '$id_result'"))) {
 			echo "Prepare failed: (" . $mysqli->errno . ") " . $mysqli->error;
 		}
 		if (!$stmt->execute()) {
@@ -190,5 +192,5 @@ else {
 
 	}	
 
-}
+//}
 ?>

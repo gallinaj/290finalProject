@@ -1,6 +1,11 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 
+require_once 'recipeHeader.php';
+?>
 
-<!DOCTYPE html>
+<!---<!DOCTYPE html>
 <html>
 	<head>
 		<title>Recipe Box</title>
@@ -8,7 +13,10 @@
 		<link rel="stylesheet" type="text/css" href="recipes.css">
 	</head>
 
-  <body>
+  <body>--->
+  
+		</fieldset>
+	</div>
 	<div id="addRecipe">
 		<form id="addForm">
 			<fieldset>

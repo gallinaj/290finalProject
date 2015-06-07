@@ -1,8 +1,10 @@
 /*** Stuff that will be present when the HTML loads***/
 window.onload = function() {
 
+    localStorage.setItem('sortBy', 'id');
+
 	makeRequest("action=initialize");
-	
+
 	document.getElementById("addButton").addEventListener("click", addRecipe);
 	
 	document.getElementById("sortOnType").addEventListener("click", sortRecipeType);
@@ -48,12 +50,17 @@ function makeRequest(statement) {
 		if(element.elements["location"].value === "website") {
 			console.log("url");
 			recipeURL = prompt("What is the url?");
-			localStorage.setItem("recipeURL", recipeURL);
+			console.log(recipeURL);
+			//localStorage.setItem("recipeURL", recipeURL);
+			localStorage.setItem("location", recipeURL);
+			console.log(location);
 		}
 		else {
 			console.log("magazine");
 			recipeMag = prompt("What is the title of the magazine?");
-			localStorage.setItem("recipeMag", recipeMag);
+			console.log(recipeMag);
+			//localStorage.setItem("recipeMag", recipeMag);
+			localStorage.setItem("location", recipeMag);
 
 		}
 		
@@ -75,6 +82,8 @@ function makeRequest(statement) {
 	xmlHttp.open("GET", "recipes.php?" + statement, true);
 	xmlHttp.send();		
 }
+
+
 
 function addRecipe() {
 	var statement = "action=add";
@@ -105,7 +114,6 @@ function filterRecipeType() {
 
 function filterRecipeIng() {
 	localStorage.setItem("filterBy", "mainIngredient");
-	//localStorage.setItem("filterOn", this.textContent);
 	var type = document.getElementById("filterMainIng").value;
 	localStorage.setItem("filterOn", type);
 	
@@ -116,7 +124,7 @@ function filterRecipeIng() {
 function clearFilters() {
 	localStorage.setItem("filterBy", "");
 	localStorage.setItem("filterOn", "");
-	localStorage.setItem("sortBy", "");
+	localStorage.setItem("sortBy", "id");
 	
 	makeRequest("action=initialize");
 }
@@ -125,7 +133,10 @@ function removeRecipe() {
 	/*var statement = "action=remove&id=" + this.parentNode.id;
 	console.log(statement);
 	makeRequest(statement);*/
+	
     console.log(this.parentNode.id);
     var statement = 'action=remove&id=' + this.parentNode.id;
+	console.log(statement);
+
     makeRequest(statement);	
 }
