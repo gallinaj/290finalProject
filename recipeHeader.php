@@ -18,7 +18,6 @@ else {
 	else {
 		$loggedIn = FALSE;
 	}
-	
 	echo "<!DOCTYPE html>";
 	echo "<html>";
 		echo "<head>";	
@@ -33,18 +32,18 @@ else {
 					echo "<h1>The Recipe Box</h1>";
 					
 					if($loggedIn) {
-						echo "You are logged in, " . $username;
-						echo "<a href=\"recipe_logout.php\"><input type=\"button\" value=\"Logout\"></a>";
+						echo "You are logged in as " . $username . ".<br />";
+						echo "<a href=\"recipe_logout.php\"><input type=\"button\" value=\"Logout\"></a><br />";
 					}
-					/*else {
-						echo "<a href=\"recipe_signup.php\"><input type=\"button\" value=\"Create Account\"></a>"; 
-						echo "<a href=\"recipe_login.php\"><input type=\"button\" value=\"Log In\"></a><br />"; 
-						
+					else {
 						echo "In order to access The Recipe Box, please create an account and/or log in!";
 						
-					}*/
-					
-					
-	
+						echo "<table>";
+							echo "<tr>";
+								echo "<td><a href=\"recipe_signup.php\"><input type=\"button\" value=\"Create Account\"></a></td>";
+								echo "<td><a href=\"recipe_login.php\"><input type=\"button\" value=\"Log In\"></a></td>";
+							echo "</tr>";
+						echo "</table>"; 
+					}
 }
 ?>

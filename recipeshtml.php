@@ -4,16 +4,6 @@ ini_set('display_errors', 'On');
 
 require_once 'recipeHeader.php';
 ?>
-
-<!---<!DOCTYPE html>
-<html>
-	<head>
-		<title>Recipe Box</title>
-		<script type="text/javascript" src="recipes.js" ></script>
-		<link rel="stylesheet" type="text/css" href="recipes.css">
-	</head>
-
-  <body>--->
   
 		</fieldset>
 	</div>
@@ -30,7 +20,7 @@ require_once 'recipeHeader.php';
 					<option value="salad">Salad</option>
 					<option value="dessert">Dessert</option>	
 					<option value="Beverage">Beverage</option>
-					<option value="Poop">"Soup"</option>
+					<!---<option value="Poop">"Soup"</option>--->
 				</select><br />
 				<span>Main Ingredient </span><input type="text" name="mainIngredient"><br />
 				<span>Where is it? </span><select id="location" name="location">
@@ -38,6 +28,7 @@ require_once 'recipeHeader.php';
 					<option value="website">Website</option>
 					<option value="magazine">Magazine</option>
 				</select><br />
+
 				<input id="addButton" type="button" name="addButton" value="Add Recipe">
 			</fieldset>
 		</form>
@@ -62,7 +53,7 @@ require_once 'recipeHeader.php';
 			<table>
 				<tr>
 					<td>Recipe Type</td>
-					<td id="typeRecipe"><select name="category">
+					<td ><select id="typeRecipe" name="category">
 						<option value="">Select a type</option>
 						<option id="mainDish" value="main dish">Main Dish</option>
 						<option id="sideDish" value="side dish">Side Dish</option>
@@ -83,23 +74,26 @@ require_once 'recipeHeader.php';
 					<td><input id="clearFilter" type="button" name="sortOnIng" value="Clear Filters"></td>
 				</tr>
 			</table>
-
-			<!---<form method="POST">
-				<select id="typeRecipe">
-					<option value="">Select a type</option>
-					<option id="mainDish" value="main dish">Main Dish</option>
-					<option value="side dish">Side Dish</option>
-					<option value="soup">Soup</option>
-					<option value="salad">Salad</option>
-					<option value="dessert">Dessert</option>	
-					<option value="Beverage">Beverage</option>
-					<option value="Poop">"Soup"</option>
-				</select>
-				<input id="filterOnType" type="submit" value="Filter By Category" />
-			</form>--->
+		</fieldset>
+		<fieldset>
+			<legend>View Entire Database</legend>
+			<table>
+				<!--<tr>
+					<td>Recipe Type</td>
+					<td><input id="sortAllOnType" type="button" name="sortAllOnType" value="Sort"></td>
+				</tr>
+				<tr>
+					<td>Main Ingredient</td>
+					<td><input id="sortAllOnIng" type="button" name="sortAllOnIng" value="Sort"></td>
+				</tr>-->
+				<tr>
+					<td><input id="viewAll" type="button" name="viewAll" value="View All Recipes"></td>
+				</tr>
+			</table>
+			
 		</fieldset>
 	</div>
-	
+
 	<div id="recipeList">
 		<fieldset>
 			<legend>Recipe List</legend>

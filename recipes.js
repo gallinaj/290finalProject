@@ -13,6 +13,8 @@ window.onload = function() {
 	document.getElementById("filterOnIng").addEventListener("click", filterRecipeIng);
 
 	document.getElementById("clearFilter").addEventListener("click", clearFilters);
+	document.getElementById("viewAll").addEventListener("click", viewAll);
+
 }
 
 function makeRequest(statement) {
@@ -46,28 +48,29 @@ function makeRequest(statement) {
 	
 	if(statement == "action=add") {
 		var element = document.getElementById("addForm");
+		var loc_details;
 		
 		if(element.elements["location"].value === "website") {
 			console.log("url");
 			recipeURL = prompt("What is the url?");
 			console.log(recipeURL);
-			//localStorage.setItem("recipeURL", recipeURL);
-			localStorage.setItem("location", recipeURL);
-			console.log(location);
+			localStorage.setItem("loc_details", recipeURL);
+			loc_details = localStorage.getItem("loc_details");
 		}
 		else {
 			console.log("magazine");
 			recipeMag = prompt("What is the title of the magazine?");
 			console.log(recipeMag);
-			//localStorage.setItem("recipeMag", recipeMag);
-			localStorage.setItem("location", recipeMag);
-
+			localStorage.setItem("loc_details", recipeMag);
+			loc_details = localStorage.getItem("loc_details");
 		}
 		
 		statement +="&name=" + element.elements["name"].value;
 		statement +="&category=" + element.elements["category"].value;
 		statement +="&mainIngredient=" + element.elements["mainIngredient"].value;
 		statement +="&location=" + element.elements["location"].value;
+		statement +="&loc_details=" + element.elements["loc_details"].value;
+		
 	}
 	else if(statement == "action=sort") {
 		var sortBy = "sortBy=" + localStorage.getItem("sortBy");
@@ -79,11 +82,14 @@ function makeRequest(statement) {
 		statement += '&' + filterBy + '&' + filterOn;
 	}
 	
-	xmlHttp.open("GET", "recipes.php?" + statement, true);
+	xmlHttp.open("GET", "recipe_functions.php?" + statement, true);
 	xmlHttp.send();		
 }
 
-
+function viewAll() {
+	var statement = "action=viewAll";
+	makeRequest(statement);
+}
 
 function addRecipe() {
 	var statement = "action=add";
@@ -105,7 +111,6 @@ function sortRecipeIng() {
 function filterRecipeType() {
 	localStorage.setItem("filterBy", "category");
 	var type = document.getElementById("typeRecipe").value;
-	//localStorage.setItem("filterOn", this.textContent);
 	
 	localStorage.setItem("filterOn", type);
 	var statement = "action=filter";
@@ -130,10 +135,6 @@ function clearFilters() {
 }
 
 function removeRecipe() {
-	/*var statement = "action=remove&id=" + this.parentNode.id;
-	console.log(statement);
-	makeRequest(statement);*/
-	
     console.log(this.parentNode.id);
     var statement = 'action=remove&id=' + this.parentNode.id;
 	console.log(statement);
